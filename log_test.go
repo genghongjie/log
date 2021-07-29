@@ -3,10 +3,15 @@ package log
 import "testing"
 
 func Test_go_init(t *testing.T) {
-	config := Config{
+	config := &Config{
 		LogSaveName: "test.log",
-		LogSavePath: "./",
+		LogSavePath: "./logs",
 	}
-	logClient := Init(config)
-	logClient.Info("Test go init success")
+	log := Init(config)
+	log.Info("Test log init success")
+	log.Infof("%s 载人登月成功", "中国")
+	log.Warn("Test log init success")
+	log.Warnf("%s 载人登月成功", "中国")
+	log.Debug("Test log init success")
+	log.Debugf("%s 载人登月成功", "中国")
 }

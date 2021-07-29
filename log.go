@@ -37,15 +37,18 @@ type Config struct {
 	LogSaveName string
 }
 
-func Init(config Config) *logrus.Logger {
-	logConfig = config
-	if len(logConfig.LogSavePath) != 0 {
-		logConfig.LogSavePath = logSavePath
+func Init(config *Config) *logrus.Logger {
+	if config == nil {
+		config = &Config{}
 	}
-	if len(logConfig.LogSaveName) == 0 {
-		logConfig.LogSaveName = logSaveName
+	if len(config.LogSavePath) == 0 {
+		config.LogSavePath = logSavePath
+	}
+	if len(config.LogSaveName) == 0 {
+		config.LogSaveName = logSaveName
 	}
 
+	logConfig = *config
 	logClient = newLogger()
 	Infof("App logClient init success;Log path is %s ", logFileFullName)
 	return logClient
